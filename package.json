@@ -1,0 +1,47 @@
+{
+  "name": "multi-tenant-secure-supabase-app",
+  "version": "1.0.0",
+  "description": "A multi-tenant secure web application demonstrating subdomain-based tenant isolation with Supabase and comprehensive security measures",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vercel dev",
+    "build": "echo 'Building static assets...'",
+    "start": "vercel dev",
+    "deploy": "vercel --prod",
+    "test": "echo 'No tests specified yet'",
+    "test:tenants": "node scripts/test-tenant-isolation.js",
+    "migrate": "node scripts/migrate-tenants.js"
+  },
+  "keywords": [
+    "supabase",
+    "vercel",
+    "multi-tenant",
+    "saas",
+    "secure",
+    "database",
+    "api",
+    "javascript",
+    "subdomain",
+    "tenant-isolation",
+    "row-level-security"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.39.0"
+  },
+  "devDependencies": {
+    "vercel": "^33.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/multi-tenant-secure-supabase-app"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/multi-tenant-secure-supabase-app/issues"
+  },
+  "homepage": "https://github.com/yourusername/multi-tenant-secure-supabase-app#readme"
+}
