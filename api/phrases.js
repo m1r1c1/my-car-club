@@ -2,7 +2,7 @@
 // This file handles tenant-aware phrase retrieval with complete tenant isolation
 
 import { createClient } from '@supabase/supabase-js';
-import { resolveTenant, hasValidTenantContext, getTenantConfig } from '../middleware/tenant.js';
+import { resolveTenant, hasValidTenantContext, getTenantConfig } from './middleware/tenant.js';
 
 /**
  * Initialize Supabase client with service role key
