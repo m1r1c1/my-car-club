@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta tags for proper document structure and responsiveness -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Multi-Tenant Secure Supabase Demo - Subdomain-based tenant isolation">
+    
+    <!-- Page title will be dynamically updated based on tenant -->
+    <title>Multi-Tenant Secure Demo</title>
+    
+    <!-- Link to external CSS file for styling -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Tenant-specific favicon support -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" id="favicon">
+</head>
+<body>
+    <!-- Main container for the entire application -->
+    <div class="container">
+        <!-- Header section with tenant-aware title and branding -->
+        <header class="header" id="app-header">
+            <div class="tenant-info" id="tenant-info">
+                <!-- Tenant information will be populated by JavaScript -->
+                <div class="tenant-indicator">
+                    <span class="tenant-label">Tenant:</span>
+                    <span class="tenant-name" id="tenant-display">Loading...</span>
+                </div>
+                <div class="subdomain-indicator">
+                    <span class="subdomain-label">Subdomain:</span>
+                    <span class="subdomain-name" id="subdomain-display">Loading...</span>
+                </div>
+            </div>
+            
+            <h1 id="main-title">Multi-Tenant Secure Demo</h1>
+            <p class="subtitle">Demonstrating subdomain-based tenant isolation with Supabase</p>
+        </header>
+
+        <!-- Main content area -->
+        <main class="main-content">
+            <!-- Tenant status section -->
+            <section class="tenant-status" id="tenant-status">
+                <div class="status-indicator" id="status-indicator">
+                    <div class="status-dot" id="status-dot"></div>
+                    <span class="status-text" id="status-text">Checking tenant status...</span>
+                </div>
+            </section>
+
+            <!-- Section for displaying the retrieved phrases -->
+            <section class="phrase-section">
+                <h2>Tenant-Specific Phrases:</h2>
+                
+                <!-- Loading indicator - shown while API request is in progress -->
+                <div id="loading" class="loading hidden">
+                    <div class="spinner"></div>
+                    <p>Loading phrases from tenant-isolated database...</p>
+                </div>
+                
+                <!-- Error display - shown if API request fails -->
+                <div id="error" class="error hidden">
+                    <div class="error-icon">⚠️</div>
+                    <h3>Unable to Load Data</h3>
+                    <p id="error-message">Unable to load phrases. Please try again.</p>
+                    <div class="error-details" id="error-details"></div>
+                </div>
+                
+                <!-- Success display - shows the retrieved phrases -->
+                <div id="phrase-display" class="phrase-display hidden">
+                    <div class="phrase-list" id="phrase-list">
+                        <!-- Phrases will be populated dynamically -->
+                    </div>
+                    <div class="phrase-metadata" id="phrase-metadata">
+                        <!-- Metadata about the phrases will be shown here -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Action buttons section -->
+            <section class="actions">
+                <!-- Button to trigger phrase retrieval -->
+                <button id="fetch-phrase" class="fetch-button" type="button">
+                    Fetch Tenant Phrases
+                </button>
+                
+                <!-- Button to refresh the display -->
+                <button id="refresh-data" class="refresh-button secondary" type="button">
+                    Refresh Data
+                </button>
+
+                <!-- Button to test cross-tenant isolation -->
+                <button id="test-isolation" class="test-button secondary" type="button">
+                    Test Tenant Isolation
+                </button>
+            </section>
+
+            <!-- Multi-tenant information section -->
+            <section class="info-section">
+                <h3>Multi-Tenant Security Features:</h3>
+                <ul class="security-features">
+                    <li>✅ Complete tenant data isolation via Row Level Security (RLS)</li>
+                    <li>✅ Subdomain-based tenant identification and validation</li>
+                    <li>✅ Database-level protection prevents cross-tenant data access</li>
+                    <li>✅ Tenant context automatically applied to all database queries</li>
+                    <li>✅ Middleware enforcement of tenant validation on every request</li>
+                    <li>✅ Cached tenant lookups for optimal performance</li>
+                </ul>
+            </section>
+
+            <!-- Technical architecture section -->
+            <section class="tech-details">
+                <h3>Multi-Tenant Architecture:</h3>
+                <div class="architecture-flow">
+                    <div class="flow-step">
+                        <span class="step-number">1</span>
+                        <span class="step-text">Subdomain Detection<br/><small>(tenant.yourapp.com)</small></span>
+                    </div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-step">
+                        <span class="step-number">2</span>
+                        <span class="step-text">Tenant Validation<br/><small>(Active tenant check)</small></span>
+                    </div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-step">
+                        <span class="step-number">3</span>
+                        <span class="step-text">Context Setting<br/><small>(RLS tenant_id)</small></span>
+                    </div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-step">
+                        <span class="step-number">4</span>
+                        <span class="step-text">Isolated Data<br/><small>(Tenant-specific only)</small></span>
+                    </div>
+                </div>
+
+                <!-- Tenant isolation demonstration -->
+                <div class="isolation-demo">
+                    <h4>Current Tenant Context:</h4>
+                    <div class="context-display" id="context-display">
+                        <div class="context-item">
+                            <label>Tenant ID:</label>
+                            <span id="context-tenant-id">Not loaded</span>
+                        </div>
+                        <div class="context-item">
+                            <label>Tenant Name:</label>
+                            <span id="context-tenant-name">Not loaded</span>
+                        </div>
+                        <div class="context-item">
+                            <label>Subdomain:</label>
+                            <span id="context-subdomain">Not loaded</span>
+                        </div>
+                        <div class="context-item">
+                            <label>Theme:</label>
+                            <span id="context-theme">Not loaded</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Test different tenant access section -->
+            <section class="tenant-testing">
+                <h3>Test Other Tenants:</h3>
+                <p class="test-description">Try accessing other tenant subdomains to see isolation in action:</p>
+                <div class="tenant-links">
+                    <a href="//demo.yourdomain.com" class="tenant-link" target="_blank">
+                        demo.yourdomain.com
+                    </a>
+                    <a href="//acme.yourdomain.com" class="tenant-link" target="_blank">
+                        acme.yourdomain.com
+                    </a>
+                    <a href="//techcorp.yourdomain.com" class="tenant-link" target="_blank">
+                        techcorp.yourdomain.com
+                    </a>
+                    <a href="//startup.yourdomain.com" class="tenant-link" target="_blank">
+                        startup.yourdomain.com
+                    </a>
+                </div>
+                <p class="test-note">
+                    <strong>Note:</strong> Each subdomain will show completely different data, 
+                    demonstrating perfect tenant isolation.
+                </p>
+            </section>
+        </main>
+
+        <!-- Footer with multi-tenant information -->
+        <footer class="footer">
+            <div class="footer-content">
+                <p>&copy; 2024 Multi-Tenant Secure Demo. Built with enterprise-grade tenant isolation.</p>
+                <div class="footer-tech">
+                    <span>Powered by:</span>
+                    <span class="tech-badge">Supabase RLS</span>
+                    <span class="tech-badge">Vercel API</span>
+                    <span class="tech-badge">Subdomain Routing</span>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Link to external JavaScript file - placed at end of body for better performance -->
+    <script src="script.js"></script>
+</body>
+</html>
