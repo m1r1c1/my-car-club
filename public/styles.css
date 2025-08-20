@@ -1,0 +1,520 @@
+
+/* Multi-Tenant CSS with Dynamic Theming Support */
+/* Ensures consistent styling across different browsers and supports tenant-specific themes */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* CSS Custom Properties for tenant theming */
+:root {
+    --primary-color: #667eea;
+    --secondary-color: #764ba2;
+    --accent-color: #3498db;
+    --success-color: #27ae60;
+    --warning-color: #f39c12;
+    --error-color: #e74c3c;
+    --text-color: #333;
+    --background-color: #f8f9fa;
+    --border-color: #e9ecef;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+}
+
+/* Tenant-specific theme overrides */
+[data-tenant-theme="red"] {
+    --primary-color: #e74c3c;
+    --secondary-color: #c0392b;
+    --accent-color: #e67e22;
+}
+
+[data-tenant-theme="green"] {
+    --primary-color: #27ae60;
+    --secondary-color: #229954;
+    --accent-color: #2ecc71;
+}
+
+[data-tenant-theme="purple"] {
+    --primary-color: #8e44ad;
+    --secondary-color: #7d3c98;
+    --accent-color: #9b59b6;
+}
+
+[data-tenant-theme="blue"] {
+    --primary-color: #3498db;
+    --secondary-color: #2980b9;
+    --accent-color: #5dade2;
+}
+
+/* Body styling with tenant-aware theming */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    min-height: 100vh;
+    padding: 20px;
+    transition: background 0.3s ease;
+}
+
+/* Main container for centering and constraining width */
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px var(--shadow-color);
+    overflow: hidden;
+}
+
+/* Header section with tenant information */
+.header {
+    background: linear-gradient(135deg, #2c3e50, var(--accent-color));
+    color: white;
+    padding: 30px;
+    text-align: center;
+    position: relative;
+}
+
+/* Tenant information display */
+.tenant-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.tenant-indicator,
+.subdomain-indicator {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 8px 15px;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+}
+
+.tenant-label,
+.subdomain-label {
+    font-size: 0.85rem;
+    opacity: 0.8;
+    font-weight: 500;
+}
+
+.tenant-name,
+.subdomain-name {
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+/* Main heading styling */
+.header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+/* Subtitle styling under main heading */
+.subtitle {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    font-weight: 300;
+}
+
+/* Tenant status section */
+.tenant-status {
+    background: var(--background-color);
+    padding: 20px 30px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.status-indicator {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    justify-content: center;
+}
+
+.status-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--success-color);
+    animation: pulse 2s infinite;
+}
+
+.status-dot.loading {
+    background: var(--warning-color);
+}
+
+.status-dot.error {
+    background: var(--error-color);
+    animation: none;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+.status-text {
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+/* Main content area padding and structure */
+.main-content {
+    padding: 40px 30px;
+}
+
+/* Section spacing for better visual hierarchy */
+.phrase-section,
+.actions,
+.info-section,
+.tech-details,
+.tenant-testing {
+    margin-bottom: 40px;
+}
+
+/* Section heading styling */
+.phrase-section h2,
+.info-section h3,
+.tech-details h3,
+.tenant-testing h3 {
+    color: #2c3e50;
+    margin-bottom: 20px;
+    font-weight: 600;
+    border-bottom: 2px solid var(--accent-color);
+    padding-bottom: 8px;
+}
+
+/* Loading indicator styling */
+.loading {
+    text-align: center;
+    padding: 40px 20px;
+    color: #666;
+}
+
+/* Animated spinner for loading state */
+.spinner {
+    width: 40px;/* CSS Reset and Base Styles */
+/* Ensures consistent styling across different browsers */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body styling with modern font and background */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* Main container for centering and constraining width */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+/* Header section styling */
+.header {
+    background: linear-gradient(135deg, #2c3e50, #3498db);
+    color: white;
+    padding: 40px 30px;
+    text-align: center;
+}
+
+/* Main heading styling */
+.header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+/* Subtitle styling under main heading */
+.subtitle {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    font-weight: 300;
+}
+
+/* Main content area padding and structure */
+.main-content {
+    padding: 40px 30px;
+}
+
+/* Section spacing for better visual hierarchy */
+.phrase-section,
+.actions,
+.info-section,
+.tech-details {
+    margin-bottom: 30px;
+}
+
+/* Section heading styling */
+.phrase-section h2,
+.info-section h3,
+.tech-details h3 {
+    color: #2c3e50;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+/* Loading indicator styling */
+.loading {
+    text-align: center;
+    padding: 40px 20px;
+    color: #666;
+}
+
+/* Animated spinner for loading state */
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #e3e3e3;
+    border-top: 4px solid #3498db;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 15px;
+}
+
+/* Keyframe animation for spinner rotation */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Error message styling */
+.error {
+    background: #fee;
+    border: 2px solid #fcc;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    color: #c33;
+}
+
+/* Success phrase display styling */
+.phrase-display {
+    background: #f8fffe;
+    border: 2px solid #4ecdc4;
+    border-radius: 12px;
+    padding: 30px;
+    text-align: center;
+    animation: fadeIn 0.5s ease-in;
+}
+
+/* Fade-in animation for phrase display */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Main phrase text styling */
+.phrase-text {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 10px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Additional phrase information styling */
+.phrase-info {
+    color: #666;
+    font-style: italic;
+}
+
+/* Button container styling */
+.actions {
+    text-align: center;
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* Primary button styling */
+.fetch-button {
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+}
+
+/* Primary button hover effect */
+.fetch-button:hover {
+    background: linear-gradient(135deg, #2980b9, #21618c);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
+}
+
+/* Secondary button styling */
+.secondary {
+    background: linear-gradient(135deg, #95a5a6, #7f8c8d);
+    box-shadow: 0 4px 15px rgba(149, 165, 166, 0.3);
+}
+
+/* Secondary button hover effect */
+.secondary:hover {
+    background: linear-gradient(135deg, #7f8c8d, #6c7b7d);
+    box-shadow: 0 6px 20px rgba(149, 165, 166, 0.4);
+}
+
+/* Button disabled state */
+.fetch-button:disabled,
+.secondary:disabled {
+    background: #bdc3c7;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* Security features list styling */
+.security-features {
+    list-style: none;
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    border-left: 4px solid #27ae60;
+}
+
+/* Individual security feature item styling */
+.security-features li {
+    padding: 8px 0;
+    font-weight: 500;
+}
+
+/* Architecture flow container styling */
+.architecture-flow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    border-left: 4px solid #3498db;
+}
+
+/* Individual flow step styling */
+.flow-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    min-width: 120px;
+}
+
+/* Flow step number circle styling */
+.step-number {
+    background: #3498db;
+    color: white;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+/* Flow step text styling */
+.step-text {
+    font-size: 0.9rem;
+    color: #666;
+    font-weight: 500;
+}
+
+/* Flow arrow styling */
+.flow-arrow {
+    font-size: 1.5rem;
+    color: #3498db;
+    font-weight: bold;
+}
+
+/* Footer styling */
+.footer {
+    background: #34495e;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    font-size: 0.9rem;
+}
+
+/* Utility class to hide elements */
+.hidden {
+    display: none !important;
+}
+
+/* Responsive design for mobile devices */
+@media (max-width: 768px) {
+    /* Adjust container padding for mobile */
+    body {
+        padding: 10px;
+    }
+    
+    /* Reduce header padding and font sizes on mobile */
+    .header {
+        padding: 30px 20px;
+    }
+    
+    .header h1 {
+        font-size: 2rem;
+    }
+    
+    /* Reduce main content padding on mobile */
+    .main-content {
+        padding: 30px 20px;
+    }
+    
+    /* Stack buttons vertically on mobile */
+    .actions {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    /* Make buttons full width on mobile */
+    .fetch-button,
+    .secondary {
+        width: 100%;
+        max-width: 300px;
+    }
+    
+    /* Stack architecture flow vertically on mobile */
+    .architecture-flow {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    /* Hide flow arrows on mobile for cleaner layout */
+    .flow-arrow {
+        display: none;
+    }
+    
+    /* Reduce phrase text size on mobile */
+    .phrase-text {
+        font-size: 1.5rem;
+    }
+}
